@@ -174,6 +174,26 @@ MusicControlsInfo * musicControlsSettings;
     }
 }
 
+
+- (void) likeEvent:(MPRemoteCommandEvent *)event {
+    NSString * action = @"music-controls-like";
+    NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonAction];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:[self latestEventCallbackId]];
+}
+- (void) dislikeEvent:(MPRemoteCommandEvent *)event {
+    NSString * action = @"music-controls-dislike";
+    NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonAction];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:[self latestEventCallbackId]];
+}
+- (void) bookmarkEvent:(MPRemoteCommandEvent *)event {
+    NSString * action = @"music-controls-bookmark";
+    NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonAction];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:[self latestEventCallbackId]];
+}
+
 - (void) nextTrackEvent:(MPRemoteCommandEvent *)event {
     NSString * action = @"music-controls-next";
     NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
@@ -211,6 +231,24 @@ MusicControlsInfo * musicControlsSettings;
         [commandCenter.changePlaybackPositionCommand setEnabled:true];
         [commandCenter.changePlaybackPositionCommand addTarget:self action:@selector(changedThumbSliderOnLockScreen:)];
 
+        if (musicControlsSettings.hasLike) {
+          MPRemoteCommand *likeCommand = [commandCenter likeCommand];
+          [likeCommand setEnabled:YES];
+          [likeCommand addTarget:self action:@selector(likeEvent:)];
+        }
+        
+        if (musicControlsSettings.hasDislike) {
+          MPRemoteCommand *dislikeCommand = [commandCenter dislikeCommand];
+          [dislikeCommand setEnabled:YES];
+          [dislikeCommand addTarget:self action:@selector(dislikeEvent:)];
+        }
+        
+        if (musicControlsSettings.hasBookmark) {
+          MPRemoteCommand *bookmarkCommand = [commandCenter bookmarkCommand];
+          [bookmarkCommand setEnabled:YES];
+          [bookmarkCommand addTarget:self action:@selector(bookmarkEvent:)];
+        }
+        
         if (musicControlsSettings.hasNext) {
           MPRemoteCommand *nextTrackCommand = [commandCenter nextTrackCommand];
           [nextTrackCommand setEnabled:YES];
