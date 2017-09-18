@@ -12,6 +12,16 @@ var musicControls = {
     data.isPlaying = !isUndefined(data.isPlaying) ? data.isPlaying : true;
     data.hasPrev = !isUndefined(data.hasPrev) ? data.hasPrev : true;
     data.hasNext = !isUndefined(data.hasNext) ? data.hasNext : true;
+    
+    data.hasLike = !isUndefined(data.hasLike) ? data.hasLike : true;
+    data.hasDislike = !isUndefined(data.hasDislike) ? data.hasDislike : true;
+    data.hasBookmark = !isUndefined(data.hasBookmark) ? data.hasBookmark : true;
+    
+    data.likeTitle = !isUndefined(data.likeTitle) ? data.likeTitle : '';
+    data.dislikeTitle = !isUndefined(data.dislikeTitle) ? data.dislikeTitle : '';
+    data.bookmarkTitle = !isUndefined(data.bookmarkTitle) ? data.bookmarkTitle : '';
+    data.previousTrackTitle = !isUndefined(data.previousTrackTitle) ? data.previousTrackTitle : '';
+    
     data.hasSkipForward = !isUndefined(data.hasSkipForward) ? data.hasSkipForward : false;
     data.hasSkipBackward = !isUndefined(data.hasSkipBackward) ? data.hasSkipBackward : false;
     data.skipForwardInterval = !isUndefined(data.skipForwardInterval) ? data.skipForwardInterval : 0;
