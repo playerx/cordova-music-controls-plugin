@@ -235,18 +235,30 @@ MusicControlsInfo * musicControlsSettings;
           MPRemoteCommand *likeCommand = [commandCenter likeCommand];
           [likeCommand setEnabled:YES];
           [likeCommand addTarget:self action:@selector(likeEvent:)];
+            
+          if (musicControlsSettings.likeTitle.length) {
+            commandCenter.likeCommand.localizedTitle = musicControlsSettings.likeTitle;
+          }
         }
         
         if (musicControlsSettings.hasDislike) {
           MPRemoteCommand *dislikeCommand = [commandCenter dislikeCommand];
           [dislikeCommand setEnabled:YES];
           [dislikeCommand addTarget:self action:@selector(dislikeEvent:)];
+            
+          if (musicControlsSettings.dislikeTitle.length) {
+            commandCenter.dislikeCommand.localizedTitle = musicControlsSettings.dislikeTitle;
+          }
         }
         
         if (musicControlsSettings.hasBookmark) {
           MPRemoteCommand *bookmarkCommand = [commandCenter bookmarkCommand];
           [bookmarkCommand setEnabled:YES];
           [bookmarkCommand addTarget:self action:@selector(bookmarkEvent:)];
+            
+          if (musicControlsSettings.bookmarkTitle.length) {
+            commandCenter.bookmarkCommand.localizedTitle = musicControlsSettings.bookmarkTitle;
+          }
         }
         
         if (musicControlsSettings.hasNext) {
@@ -259,6 +271,10 @@ MusicControlsInfo * musicControlsSettings;
           MPRemoteCommand *prevTrackCommand = [commandCenter previousTrackCommand];
           [prevTrackCommand setEnabled:YES];
           [prevTrackCommand addTarget:self action:@selector(prevTrackEvent:)];
+          
+          if (musicControlsSettings.previousTrackTitle.length) {
+            commandCenter.previousTrackCommand.localizedTitle = musicControlsSettings.previousTrackTitle;
+          }
         }
 
         if (musicControlsSettings.hasSkipForward) {
