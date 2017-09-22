@@ -271,10 +271,6 @@ MusicControlsInfo * musicControlsSettings;
           MPRemoteCommand *prevTrackCommand = [commandCenter previousTrackCommand];
           [prevTrackCommand setEnabled:YES];
           [prevTrackCommand addTarget:self action:@selector(prevTrackEvent:)];
-          
-          if (musicControlsSettings.previousTrackTitle.length) {
-            commandCenter.previousTrackCommand.localizedTitle = musicControlsSettings.previousTrackTitle;
-          }
         }
 
         if (musicControlsSettings.hasSkipForward) {
