@@ -18,11 +18,18 @@
 @property NSString * album;
 @property NSString * ticker;
 @property NSString * cover;
+@property NSString * likeTitle;
+@property NSString * dislikeTitle;
+@property NSString * bookmarkTitle;
+@property NSString * previousTrackTitle;
 @property int duration;
 @property int elapsed;
 @property bool isPlaying;
 @property bool hasPrev;
 @property bool hasNext;
+@property bool hasLike;
+@property bool hasDislike;
+@property bool hasBookmark;
 @property bool hasSkipForward;
 @property bool hasSkipBackward;
 @property int skipForwardInterval;
