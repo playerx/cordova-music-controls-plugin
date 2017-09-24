@@ -1,73 +1,73 @@
 var musicControls = {
-  updateCallback: function () {},
+	updateCallback: function () { },
 
-  create: function (data, successCallback, errorCallback) {
-    data.artist = !isUndefined(data.artist) ? data.artist : '';
-    data.track = !isUndefined(data.track) ? data.track : '';
-    data.album = !isUndefined(data.album) ? data.album : '';
-    data.cover = !isUndefined(data.cover) ? data.cover : '';
-    data.ticker = !isUndefined(data.ticker) ? data.ticker : '';
-    data.duration = !isUndefined(data.duration) ? data.duration : 0;
-    data.elapsed = !isUndefined(data.elapsed) ? data.elapsed : 0;
-    data.isPlaying = !isUndefined(data.isPlaying) ? data.isPlaying : true;
-    data.hasPrev = !isUndefined(data.hasPrev) ? data.hasPrev : true;
-    data.hasNext = !isUndefined(data.hasNext) ? data.hasNext : true;
-    
-    data.hasLike = !isUndefined(data.hasLike) ? data.hasLike : true;
-    data.hasDislike = !isUndefined(data.hasDislike) ? data.hasDislike : true;
-    data.hasBookmark = !isUndefined(data.hasBookmark) ? data.hasBookmark : true;
-    
-    data.likeTitle = !isUndefined(data.likeTitle) ? data.likeTitle : '';
-    data.dislikeTitle = !isUndefined(data.dislikeTitle) ? data.dislikeTitle : '';
-    data.bookmarkTitle = !isUndefined(data.bookmarkTitle) ? data.bookmarkTitle : '';
-    data.previousTrackTitle = !isUndefined(data.previousTrackTitle) ? data.previousTrackTitle : '';
-    
-    data.hasSkipForward = !isUndefined(data.hasSkipForward) ? data.hasSkipForward : false;
-    data.hasSkipBackward = !isUndefined(data.hasSkipBackward) ? data.hasSkipBackward : false;
-    data.skipForwardInterval = !isUndefined(data.skipForwardInterval) ? data.skipForwardInterval : 0;
-    data.skipBackwardInterval = !isUndefined(data.skipBackwardInterval) ? data.skipBackwardInterval : 0;
-    data.hasClose = !isUndefined(data.hasClose) ? data.hasClose : false;
-    data.dismissable = !isUndefined(data.dismissable) ? data.dismissable : false;
+	create: function (data, successCallback, errorCallback) {
+		data.artist = !isUndefined(data.artist) ? data.artist : '';
+		data.track = !isUndefined(data.track) ? data.track : '';
+		data.album = !isUndefined(data.album) ? data.album : '';
+		data.cover = !isUndefined(data.cover) ? data.cover : '';
+		data.ticker = !isUndefined(data.ticker) ? data.ticker : '';
+		data.duration = !isUndefined(data.duration) ? data.duration : 0;
+		data.elapsed = !isUndefined(data.elapsed) ? data.elapsed : 0;
+		data.isPlaying = !isUndefined(data.isPlaying) ? data.isPlaying : true;
+		data.hasPrev = !isUndefined(data.hasPrev) ? data.hasPrev : true;
+		data.hasNext = !isUndefined(data.hasNext) ? data.hasNext : true;
 
-    cordova.exec(successCallback, errorCallback, 'MusicControls', 'create', [data]);
-  },
+		data.hasLike = !isUndefined(data.hasLike) ? data.hasLike : false;
+		data.hasDislike = !isUndefined(data.hasDislike) ? data.hasDislike : false;
+		data.hasBookmark = !isUndefined(data.hasBookmark) ? data.hasBookmark : false;
 
-  updateIsPlaying: function (isPlaying, successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateIsPlaying', [{isPlaying: isPlaying}]);
-  },
-  updateElapsed: function (args, successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateElapsed', [{
-      elapsed: args.elapsed,
-      isPlaying: (args.isPlaying === undefined) ? '' : !!args.isPlaying
-    }]);
-  },
-  updateDismissable: function (dismissable, successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateDismissable', [{dismissable: dismissable}]);
-  },
+		data.likeTitle = !isUndefined(data.likeTitle) ? data.likeTitle : '';
+		data.dislikeTitle = !isUndefined(data.dislikeTitle) ? data.dislikeTitle : '';
+		data.bookmarkTitle = !isUndefined(data.bookmarkTitle) ? data.bookmarkTitle : '';
+		data.previousTrackTitle = !isUndefined(data.previousTrackTitle) ? data.previousTrackTitle : '';
 
-  destroy: function (successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, 'MusicControls', 'destroy', []);
-  },
+		data.hasSkipForward = !isUndefined(data.hasSkipForward) ? data.hasSkipForward : false;
+		data.hasSkipBackward = !isUndefined(data.hasSkipBackward) ? data.hasSkipBackward : false;
+		data.skipForwardInterval = !isUndefined(data.skipForwardInterval) ? data.skipForwardInterval : 0;
+		data.skipBackwardInterval = !isUndefined(data.skipBackwardInterval) ? data.skipBackwardInterval : 0;
+		data.hasClose = !isUndefined(data.hasClose) ? data.hasClose : false;
+		data.dismissable = !isUndefined(data.dismissable) ? data.dismissable : false;
 
-  // Register callback
-  subscribe: function (onUpdate) {
-    musicControls.updateCallback = onUpdate;
-  },
-  // Start listening for events
-  listen: function () {
-    cordova.exec(musicControls.receiveCallbackFromNative, function (res) {
-    }, 'MusicControls', 'watch', []);
-  },
-  receiveCallbackFromNative: function (messageFromNative) {
-    musicControls.updateCallback(messageFromNative);
-    cordova.exec(musicControls.receiveCallbackFromNative, function (res) {
-    }, 'MusicControls', 'watch', []);
-  }
+		cordova.exec(successCallback, errorCallback, 'MusicControls', 'create', [data]);
+	},
+
+	updateIsPlaying: function (isPlaying, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateIsPlaying', [{ isPlaying: isPlaying }]);
+	},
+	updateElapsed: function (args, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateElapsed', [{
+			elapsed: args.elapsed,
+			isPlaying: (args.isPlaying === undefined) ? '' : !!args.isPlaying
+		}]);
+	},
+	updateDismissable: function (dismissable, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, 'MusicControls', 'updateDismissable', [{ dismissable: dismissable }]);
+	},
+
+	destroy: function (successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, 'MusicControls', 'destroy', []);
+	},
+
+	// Register callback
+	subscribe: function (onUpdate) {
+		musicControls.updateCallback = onUpdate;
+	},
+	// Start listening for events
+	listen: function () {
+		cordova.exec(musicControls.receiveCallbackFromNative, function (res) {
+		}, 'MusicControls', 'watch', []);
+	},
+	receiveCallbackFromNative: function (messageFromNative) {
+		musicControls.updateCallback(messageFromNative);
+		cordova.exec(musicControls.receiveCallbackFromNative, function (res) {
+		}, 'MusicControls', 'watch', []);
+	}
 
 };
 
 function isUndefined(val) {
-  return val === undefined;
+	return val === undefined;
 }
 
 module.exports = musicControls;
