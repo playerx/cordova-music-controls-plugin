@@ -175,6 +175,18 @@ MusicControlsInfo * musicControlsSettings;
 }
 
 
+- (void) playEvent:(MPRemoteCommandEvent *)event {
+    NSString * action = @"music-controls-play";
+    NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonAction];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:[self latestEventCallbackId]];
+}
+- (void) pauseEvent:(MPRemoteCommandEvent *)event {
+    NSString * action = @"music-controls-pause";
+    NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:jsonAction];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:[self latestEventCallbackId]];
+}
 - (void) likeEvent:(MPRemoteCommandEvent *)event {
     NSString * action = @"music-controls-like";
     NSString * jsonAction = [NSString stringWithFormat:@"{\"message\":\"%@\"}", action];
@@ -231,6 +243,14 @@ MusicControlsInfo * musicControlsSettings;
         [commandCenter.changePlaybackPositionCommand setEnabled:true];
         [commandCenter.changePlaybackPositionCommand addTarget:self action:@selector(changedThumbSliderOnLockScreen:)];
 
+        MPRemoteCommand *playCommand = [commandCenter playCommand];
+        [playCommand setEnabled:YES];
+        [playCommand addTarget:self action:@selector(playEvent:)];
+        
+        MPRemoteCommand *pauseCommand = [commandCenter pauseCommand];
+        [pauseCommand setEnabled:YES];
+        [pauseCommand addTarget:self action:@selector(pauseEvent:)];
+        
         if (musicControlsSettings.hasLike) {
           MPRemoteCommand *likeCommand = [commandCenter likeCommand];
           [likeCommand setEnabled:YES];
@@ -312,6 +332,12 @@ MusicControlsInfo * musicControlsSettings;
 
         [commandCenter.nextTrackCommand removeTarget:self];
         [commandCenter.previousTrackCommand removeTarget:self];
+        
+        [commandCenter.pauseCommand removeTarget:self];
+        [commandCenter.playCommand removeTarget:self];
+        [commandCenter.likeCommand removeTarget:self];
+        [commandCenter.dislikeCommand removeTarget:self];
+        [commandCenter.bookmarkCommand removeTarget:self];
     }
 }
 
